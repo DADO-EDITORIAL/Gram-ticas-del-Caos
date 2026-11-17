@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Libro digital accesible con audiolibro, videos, Lengua de Señas Colombiana y lectura adaptable.">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>El bosque que recuerda · Libro digital</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ed;
+      --surface: #fffefa;
+      --ink: #222922;
+      --muted: #566258;
+      --accent: #315c43;
+      --accent-soft: #e6ede5;
+      --accent-soft-ink: #263b2d;
+      --line: #d9ded6;
+      --panel: #315c43;
+      --panel-ink: #fff;
+      --button: #315c43;
+      --button-ink: #fff;
+      --button-secondary: #fffefa;
+      --button-secondary-ink: #222922;
+      --art: #e5eadc;
+      --art-2: #d5dfcc;
+      --art-ink: #294735;
+      --cover-ornament: #d5dfcc;
+      --focus: #b84f32;
+      --font-scale: 1;
+      --shadow: 0 12px 34px rgba(26, 39, 29, .07);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: calc(16px * var(--font-scale)); }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    body.negative {
+      color-scheme: dark;
+      --paper: #111713;
+      --surface: #1b241e;
+      --ink: #f3f6f1;
+      --muted: #d1dbd2;
+      --accent: #c5e3ca;
+      --accent-soft: #29392e;
+      --accent-soft-ink: #eef4ee;
+      --line: #4b5b4f;
+      --panel: #202d24;
+      --panel-ink: #f5f7f3;
+      --button: #c5e3ca;
+      --button-ink: #152119;
+      --button-secondary: #29372e;
+      --button-secondary-ink: #f3f6f1;
+      --art: #29392e;
+      --art-2: #35483a;
+      --art-ink: #edf5ec;
+      --cover-ornament: #c5e3ca;
+      --focus: #ffd27a;
+      --shadow: 0 12px 34px rgba(0, 0, 0, .25);
+    }
+    body.high-contrast {
+      --paper: #fff;
+      --surface: #fff;
+      --ink: #000;
+      --muted: #222;
+      --accent: #001f12;
+      --accent-soft: #e8ffe9;
+      --accent-soft-ink: #001f12;
+      --line: #111;
+      --panel: #001f12;
+      --panel-ink: #fff;
+      --button: #001f12;
+      --button-ink: #fff;
+      --button-secondary: #fff;
+      --button-secondary-ink: #000;
+      --art: #eee;
+      --art-2: #ddd;
+      --art-ink: #000;
+      --cover-ornament: #fff;
+      --focus: #c33b16;
+      --shadow: none;
+    }
+    body.light-background {
+      --paper: #fff;
+      --surface: #fff;
+      --ink: #17241c;
+      --muted: #415248;
+      --accent: #244d35;
+      --accent-soft: #edf2eb;
+      --accent-soft-ink: #203a2a;
+      --line: #c9d2ca;
+      --panel: #244d35;
+      --panel-ink: #fff;
+      --button: #244d35;
+      --button-ink: #fff;
+      --button-secondary: #fff;
+      --button-secondary-ink: #17241c;
+      --art: #edf2eb;
+      --art-2: #dce7d9;
+      --art-ink: #203a2a;
+      --cover-ornament: #dce7d9;
+    }
+    /* Grayscale uses a purpose-built neutral palette, not a body filter.
+       This preserves readable text and avoids compositing/stacking issues. */
+    body.grayscale {
+      --paper: #f1f1f1;
+      --surface: #fff;
+      --ink: #111;
+      --muted: #414141;
+      --accent: #202020;
+      --accent-soft: #e7e7e7;
+      --accent-soft-ink: #111;
+      --line: #bcbcbc;
+      --panel: #262626;
+      --panel-ink: #fff;
+      --button: #262626;
+      --button-ink: #fff;
+      --button-secondary: #fff;
+      --button-secondary-ink: #111;
+      --art: #e4e4e4;
+      --art-2: #d1d1d1;
+      --art-ink: #171717;
+      --cover-ornament: #d1d1d1;
+      --focus: #111;
+      --shadow: 0 10px 28px rgba(0, 0, 0, .08);
+    }
+    body.negative.grayscale {
+      --paper: #111;
+      --surface: #1d1d1d;
+      --ink: #fff;
+      --muted: #e0e0e0;
+      --accent: #fff;
+      --accent-soft: #303030;
+      --accent-soft-ink: #fff;
+      --line: #777;
+      --panel: #242424;
+      --panel-ink: #fff;
+      --button: #eee;
+      --button-ink: #111;
+      --button-secondary: #303030;
+      --button-secondary-ink: #fff;
+      --art: #303030;
+      --art-2: #414141;
+      --art-ink: #fff;
+      --cover-ornament: #eee;
+    }
+    body.readable-font { font-family: Verdana, Arial, sans-serif; letter-spacing: .01em; }
+    body.underline-links a { text-decoration: underline !important; text-decoration-thickness: 2px !important; text-underline-offset: 3px !important; }
+    body.reduce-motion *, body.reduce-motion *::before, body.reduce-motion *::after {
+      animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important; scroll-behavior: auto !important;
+    }
+
+    a { color: var(--accent); text-underline-offset: 3px; }
+    button, input, select { font: inherit; }
+    button, a, input, select, summary { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .skip-link { position: absolute; left: 1rem; top: -5rem; z-index: 100; padding: .7rem 1rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    .skip-link:focus { top: 1rem; }
+    .shell { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
+
+    header { border-bottom: 1px solid var(--line); }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .brand { color: var(--ink); text-decoration: none; font-weight: 750; letter-spacing: -.04em; font-size: 1.08rem; }
+    .brand-mark { color: var(--accent); margin-right: .45rem; }
+    .navlinks { display: flex; gap: 1.35rem; align-items: center; }
+    .navlinks a { color: var(--muted); text-decoration: none; font-size: .9rem; }
+    .navlinks a:hover { color: var(--ink); text-decoration: underline; }
+    .access-toggle { border: 1px solid var(--line); border-radius: 999px; padding: .55rem .85rem; background: var(--surface); color: var(--ink); cursor: pointer; font-size: .88rem; }
+
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; padding: 4rem 0 4.5rem; }
+    .eyebrow, .kicker { color: var(--accent); font-size: .76rem; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 10ch; margin: .85rem 0 1rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 6vw, 5.4rem); font-weight: 500; line-height: .98; letter-spacing: -.055em; }
+    .hero-copy { color: var(--muted); max-width: 42ch; font-size: 1rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.35rem; }
+    .btn { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: .68rem 1rem; border: 1px solid var(--button); border-radius: 7px; background: var(--button); color: var(--button-ink); text-decoration: none; font-weight: 700; cursor: pointer; }
+    .btn:hover { filter: brightness(.96); }
+    .btn.secondary { background: var(--button-secondary); color: var(--button-secondary-ink); border-color: var(--line); }
+    .hero-art { display: grid; place-items: center; min-height: 350px; }
+    .book-cover { position: relative; width: min(290px, 80%); min-height: 350px; padding: 1.4rem; overflow: hidden; border-radius: 5px 15px 15px 5px; border-left: 8px solid rgba(0,0,0,.12); background: var(--panel); color: var(--panel-ink); box-shadow: 14px 17px 0 var(--art-2), var(--shadow); }
+    .book-cover::before, .book-cover::after { content: none; }
+    .cover-label { position: relative; z-index: 2; font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+    .cover-title { position: relative; z-index: 2; max-width: 8ch; margin: 1.2rem 0 .5rem; font-family: Georgia, serif; font-size: 2.65rem; line-height: 1; }
+    .cover-sub { position: relative; z-index: 3; max-width: 18ch; font-size: .84rem; }
+    .cover-tree { position: absolute; z-index: 1; width: 126px; height: 126px; right: 5px; bottom: 5px; }
+
+    .section { padding: 2.9rem 0; border-top: 1px solid var(--line); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+    h2 { margin: .35rem 0 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 3.8vw, 3rem); line-height: 1.05; font-weight: 500; letter-spacing: -.04em; }
+    .section-intro { max-width: 48ch; margin: .55rem 0 0; color: var(--muted); font-size: .94rem; }
+
+    .audio-panel { display: grid; grid-template-columns: .72fr 1.28fr; gap: 2rem; align-items: center; padding: 1.5rem; border-radius: 12px; background: var(--panel); color: var(--panel-ink); }
+    .audio-art { display: grid; place-items: center; min-height: 195px; border-radius: 8px; background: var(--art); color: var(--art-ink); }
+    .audio-art span { font-family: Georgia, serif; font-size: 5rem; }
+    .audio-content h2 { color: var(--panel-ink); }
+    .audio-content > p { color: var(--panel-ink); opacity: .86; font-size: .9rem; }
+    .audio-content .kicker { color: var(--panel-ink); opacity: .82; }
+    .audio-controls { padding: 1rem; border: 1px solid rgba(255,255,255,.25); border-radius: 8px; background: rgba(0,0,0,.10); }
+    audio { width: 100%; display: block; margin: .65rem 0; }
+    .file-row { display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; margin-top: .8rem; }
+    .file-label { display: inline-flex; align-items: center; min-height: 40px; padding: .55rem .75rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font-size: .84rem; font-weight: 700; cursor: pointer; }
+    .file-label:hover { border-color: var(--accent); }
+    .file-label input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    .file-label:focus-within { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .audio-content .file-label { border-color: rgba(255,255,255,.5); }
+    .audio-content .btn { min-height: 40px; font-size: .84rem; }
+    .audio-content .btn.secondary { background: transparent; color: var(--panel-ink); border-color: rgba(255,255,255,.5); }
+    .audio-status, .media-status { margin: .45rem 0 0; color: var(--muted); font-size: .8rem; overflow-wrap: anywhere; }
+    .audio-content .audio-status { color: var(--panel-ink); opacity: .9; }
+    .chapter-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .8rem; }
+    .chapter { padding: .4rem .65rem; border: 1px solid rgba(255,255,255,.5); border-radius: 999px; background: transparent; color: var(--panel-ink); font-size: .78rem; cursor: pointer; }
+    .chapter[aria-pressed="true"] { background: var(--panel-ink); color: var(--panel); }
+    .speed-control { color: var(--panel-ink); font-size: .82rem; }
+    .speed-control select { min-height: 36px; margin-left: .3rem; border: 1px solid rgba(255,255,255,.5); border-radius: 5px; padding: .25rem .4rem; background: var(--surface); color: var(--ink); }
+    details { margin-top: .8rem; }
+    summary { color: var(--accent); cursor: pointer; font-weight: 700; font-size: .86rem; }
+    .audio-content summary { color: var(--panel-ink); }
+    .transcript { margin: .55rem 0 0; color: var(--muted); font-size: .86rem; }
+    .audio-content .transcript { color: var(--panel-ink); }
+
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .video-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .video-poster { min-height: 165px; display: grid; place-items: center; position: relative; background: var(--art); color: var(--art-ink); }
+    .video-card:nth-child(2) .video-poster { background: var(--art-2); }
+    .video-card:nth-child(3) .video-poster { background: var(--accent-soft); color: var(--accent-soft-ink); }
+    .poster-symbol { font-family: Georgia, serif; font-size: 3.6rem; opacity: .85; }
+    .video-card video, .lsc-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #111; }
+    .card-body { padding: 1rem; }
+    .card-body h3 { margin: 0 0 .35rem; font-family: Georgia, serif; font-size: 1.35rem; font-weight: 500; }
+    .card-body p { color: var(--muted); margin: 0 0 .75rem; font-size: .86rem; }
+    .card-files { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .card-files .file-label { font-size: .78rem; min-height: 36px; }
+    .card-body details { border-top: 1px solid var(--line); padding-top: .65rem; }
+    .lsc-panel { display: grid; grid-template-columns: .85fr 1.15fr; gap: 1.5rem; align-items: center; padding: 1.5rem; background: var(--accent-soft); color: var(--accent-soft-ink); border-radius: 10px; }
+    .lsc-panel .kicker, .lsc-panel h2 { color: var(--accent-soft-ink); }
+    .lsc-panel p { color: var(--accent-soft-ink); font-size: .9rem; }
+    .lsc-frame { overflow: hidden; border-radius: 7px; background: #151515; }
+    .lsc-placeholder { display: grid; place-items: center; min-height: 240px; padding: 1.5rem; color: #fff; text-align: center; background: #242424; }
+    .lsc-placeholder strong { display: block; font-size: 1rem; }
+    .lsc-placeholder span { display: block; margin-bottom: .6rem; font-size: 2.5rem; }
+    .lsc-panel .file-label { margin: .2rem .3rem .2rem 0; }
+
+    .reading-panel { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; padding: 1.5rem; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .reading-text { max-width: 68ch; }
+    .reading-text h3 { margin: .3rem 0 .8rem; font-family: Georgia, serif; font-size: 1.4rem; font-weight: 500; }
+    .reading-text p { color: var(--muted); }
+    .reading-tools { display: flex; flex-direction: column; gap: .45rem; }
+    .reading-tools button { min-height: 38px; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); cursor: pointer; font-size: .83rem; }
+    .reading-tools button:hover { border-color: var(--accent); }
+
+    .access-panel { position: fixed; z-index: 30; top: 82px; right: max(20px, calc((100vw - 1080px) / 2)); width: min(310px, calc(100vw - 32px)); padding: 1rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+    .access-panel[hidden] { display: none; }
+    .access-panel h2 { margin: 0 0 .25rem; font-family: inherit; font-size: 1.05rem; font-weight: 750; letter-spacing: 0; }
+    .access-panel > p { margin: 0 0 .8rem; color: var(--muted); font-size: .8rem; }
+    .access-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; }
+    .access-grid button { min-height: 40px; padding: .4rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); cursor: pointer; font-size: .79rem; text-align: left; }
+    .access-grid button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent); }
+    .access-grid button.wide { grid-column: 1 / -1; text-align: center; background: var(--button); color: var(--button-ink); border-color: var(--button); }
+    .access-note { margin: .75rem 0 0 !important; font-size: .74rem !important; }
+
+    footer { margin-top: 2rem; padding: 1.6rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-inner p { margin: 0; }
+    .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr 1fr; gap: 1.2rem; padding: 3rem 0; }
+      .book-cover { min-height: 320px; }
+      .audio-panel, .lsc-panel { grid-template-columns: 1fr; }
+      .audio-art { min-height: 130px; }
+      .video-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .shell { width: min(100% - 28px, 1080px); }
+      .nav { min-height: 64px; flex-wrap: wrap; padding: .7rem 0; }
+      .navlinks { order: 3; width: 100%; gap: 1rem; overflow-x: auto; padding: .2rem 0; }
+      .navlinks a { white-space: nowrap; font-size: .82rem; }
+      .access-toggle { margin-left: auto; }
+      .hero { grid-template-columns: 1fr; gap: 1rem; padding: 2.5rem 0 3rem; }
+      .hero-art { min-height: 300px; }
+      .book-cover { width: 230px; min-height: 285px; }
+      .cover-title { font-size: 2.2rem; }
+      .section { padding: 2.2rem 0; }
+      .section-head { display: block; }
+      .audio-panel, .lsc-panel { padding: 1rem; }
+      .video-grid { grid-template-columns: 1fr; }
+      .video-poster { min-height: 145px; }
+      .reading-panel { grid-template-columns: 1fr; padding: 1rem; }
+      .reading-tools { flex-direction: row; flex-wrap: wrap; }
+      .reading-tools button { flex: 1 1 42%; }
+      .access-panel { top: 72px; right: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header>
+    <nav class="shell nav" aria-label="Navegación principal">
+      <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">01</span>El bosque que recuerda</a>
+      <div class="navlinks">
+        <a href="#audiolibro">Audio</a>
+        <a href="#videos">Videos</a>
+        <a href="#lsc">LSC</a>
+        <a href="#lectura">Leer</a>
+      </div>
+      <button class="access-toggle" id="accessToggle" type="button" aria-expanded="false" aria-controls="accessPanel">Accesibilidad</button>
+    </nav>
+  </header>
+
+  <aside class="access-panel" id="accessPanel" aria-labelledby="accessTitle" hidden>
+    <h2 id="accessTitle">Ajustes de lectura</h2>
+    <p>Adapta la presentación de esta página.</p>
+    <div class="access-grid">
+      <button type="button" data-action="font-up">A+ Texto</button>
+      <button type="button" data-action="font-down">A− Texto</button>
+      <button type="button" data-action="grayscale" aria-pressed="false">Escala de grises</button>
+      <button type="button" data-action="negative" aria-pressed="false">Contraste negativo</button>
+      <button type="button" data-action="high-contrast" aria-pressed="false">Alto contraste</button>
+      <button type="button" data-action="light" aria-pressed="false">Fondo claro</button>
+      <button type="button" data-action="underline" aria-pressed="false">Subrayar enlaces</button>
+      <button type="button" data-action="font" aria-pressed="false">Fuente legible</button>
+      <button type="button" data-action="motion" aria-pressed="false">Menos movimiento</button>
+      <button type="button" data-action="reset" class="wide">Restablecer</button>
+    </div>
+    <p class="access-note">También puedes usar el zoom del navegador y navegar con Tab y Enter.</p>
+  </aside>
+
+  <main id="contenido">
+    <section class="shell hero" id="inicio" aria-labelledby="heroTitle">
+      <div>
+        <span class="eyebrow">Un libro para explorar</span>
+        <h1 id="heroTitle">El bosque que recuerda</h1>
+        <p class="hero-copy">Una historia sobre la memoria, los sonidos y lo que compartimos.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#audiolibro">Escuchar el libro</a>
+          <a class="btn secondary" href="#lectura">Leer</a>
+        </div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Portada ilustrada del libro El bosque que recuerda">
+        <div class="book-cover">
+          <div class="cover-label">Edición digital</div>
+          <div class="cover-title">El bosque que recuerda</div>
+          <p class="cover-sub">Una historia para descubrir de muchas maneras.</p>
+          <svg class="cover-tree" viewBox="0 0 190 190" aria-hidden="true">
+            <path d="M91 176 C97 135 89 110 97 84 C103 63 122 51 139 40 M96 111 C71 92 56 73 48 51 M94 91 C85 63 92 42 106 24 M94 133 C119 118 139 109 159 107" fill="none" stroke="var(--cover-ornament)" stroke-width="10" stroke-linecap="round"/>
+            <g fill="var(--cover-ornament)"><circle cx="43" cy="43" r="28"/><circle cx="79" cy="28" r="27"/><circle cx="119" cy="23" r="27"/><circle cx="151" cy="48" r="28"/><circle cx="151" cy="91" r="25"/><circle cx="55" cy="88" r="25"/></g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="audiolibro" aria-labelledby="audioTitle">
+      <div class="section-head">
+        <div><span class="kicker">01 · Escuchar</span><h2 id="audioTitle">Audiolibro</h2></div>
+      </div>
+      <div class="audio-panel">
+        <div class="audio-art" aria-hidden="true"><span>♫</span></div>
+        <div class="audio-content">
+          <span class="kicker">El bosque que recuerda</span>
+          <h2>Escucha a tu ritmo</h2>
+          <p>Carga el audio del libro o escucha un fragmento de muestra.</p>
+          <div class="audio-controls">
+            <label class="file-label" for="audioFile">Cargar audiolibro MP3<input id="audioFile" type="file" accept="audio/*"></label>
+            <audio id="audioPlayer" controls preload="metadata" aria-label="Reproductor del audiolibro"></audio>
+            <p class="audio-status" id="audioStatus" aria-live="polite">No hay audio cargado.</p>
+            <details>
+              <summary>Ver transcripción</summary>
+              <p class="transcript">[Añadir aquí la transcripción completa del audiolibro.]</p>
+            </details>
+            <div class="chapter-row" aria-label="Fragmentos de muestra">
+              <button class="chapter" type="button" data-sample="opening" aria-pressed="true">Inicio</button>
+              <button class="chapter" type="button" data-sample="middle" aria-pressed="false">Encuentro</button>
+              <button class="chapter" type="button" data-sample="ending" aria-pressed="false">Final</button>
+            </div>
+            <div class="file-row">
+              <button class="btn" id="speakButton" type="button">Escuchar muestra</button>
+              <button class="btn secondary" id="stopSpeakButton" type="button">Detener</button>
+              <label class="speed-control" for="speechRate">Velocidad
+                <select id="speechRate" aria-label="Velocidad de lectura"><option value="0.8">Lenta</option><option value="1" selected>Normal</option><option value="1.2">Rápida</option></select>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="videos" aria-labelledby="videosTitle">
+      <div class="section-head">
+        <div><span class="kicker">02 · Mirar</span><h2 id="videosTitle">Explora la historia</h2></div>
+      </div>
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-poster" data-poster><span class="poster-symbol" aria-hidden="true">01</span></div>
+          <video controls playsinline preload="metadata" hidden aria-label="Video 1: El paisaje sonoro"></video>
+          <div class="card-body">
+            <h3>El paisaje sonoro</h3>
+            <p>Los sonidos del bosque y sus recuerdos.</p>
+            <div class="card-files">
+              <label class="file-label">Cargar video<input type="file" accept="video/mp4,video/webm,video/ogg" data-video="0"></label>
+              <label class="file-label">Subtítulos<input type="file" accept=".vtt,text/vtt" data-caption="0"></label>
+            </div>
+            <p class="media-status" aria-live="polite">MP4 / WebM · Subtítulos .vtt</p>
+            <details><summary>Transcripción</summary><p class="transcript">[Añadir la transcripción y describir sonidos importantes.]</p></details>
+          </div>
+        </article>
+        <article class="video-card">
+          <div class="video-poster" data-poster><span class="poster-symbol" aria-hidden="true">02</span></div>
+          <video controls playsinline preload="metadata" hidden aria-label="Video 2: Los símbolos del cuento"></video>
+          <div class="card-body">
+            <h3>Los símbolos del cuento</h3>
+            <p>Personajes, imágenes y significados.</p>
+            <div class="card-files">
+              <label class="file-label">Cargar video<input type="file" accept="video/mp4,video/webm,video/ogg" data-video="1"></label>
+              <label class="file-label">Subtítulos<input type="file" accept=".vtt,text/vtt" data-caption="1"></label>
+            </div>
+            <p class="media-status" aria-live="polite">MP4 / WebM · Subtítulos .vtt</p>
+            <details><summary>Transcripción</summary><p class="transcript">[Añadir transcripción y descripción de las imágenes relevantes.]</p></details>
+          </div>
+        </article>
+        <article class="video-card">
+          <div class="video-poster" data-poster><span class="poster-symbol" aria-hidden="true">03</span></div>
+          <video controls playsinline preload="metadata" hidden aria-label="Video 3: De la historia a la vida real"></video>
+          <div class="card-body">
+            <h3>De la historia a la vida real</h3>
+            <p>Ideas para conversar y compartir.</p>
+            <div class="card-files">
+              <label class="file-label">Cargar video<input type="file" accept="video/mp4,video/webm,video/ogg" data-video="2"></label>
+              <label class="file-label">Subtítulos<input type="file" accept=".vtt,text/vtt" data-caption="2"></label>
+            </div>
+            <p class="media-status" aria-live="polite">MP4 / WebM · Subtítulos .vtt</p>
+            <details><summary>Transcripción</summary><p class="transcript">[Añadir transcripción e instrucciones habladas.]</p></details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell section" id="lsc" aria-labelledby="lscTitle">
+      <div class="section-head">
+        <div><span class="kicker">03 · Lengua de Señas Colombiana</span><h2 id="lscTitle">El libro en LSC</h2></div>
+      </div>
+      <div class="lsc-panel">
+        <div>
+          <p>Versión del relato en Lengua de Señas Colombiana.</p>
+          <label class="file-label">Cargar video LSC<input id="lscFile" type="file" accept="video/mp4,video/webm,video/ogg"></label>
+          <label class="file-label">Subtítulos<input id="lscCaption" type="file" accept=".vtt,text/vtt"></label>
+          <p class="media-status" id="lscStatus" aria-live="polite">No hay video cargado.</p>
+          <details><summary>Texto de apoyo</summary><p class="transcript">[Añadir una sinopsis en español. No sustituye la adaptación en LSC.]</p></details>
+        </div>
+        <div class="lsc-frame">
+          <div class="lsc-placeholder" id="lscPlaceholder"><div><span aria-hidden="true">✋</span><strong>Video en LSC</strong></div></div>
+          <video id="lscPlayer" controls playsinline preload="metadata" hidden aria-label="Versión del libro en Lengua de Señas Colombiana"></video>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="lectura" aria-labelledby="readingTitle">
+      <div class="section-head">
+        <div><span class="kicker">04 · Leer</span><h2 id="readingTitle">Lee el libro</h2></div>
+      </div>
+      <div class="reading-panel">
+        <div class="reading-text" id="sampleText">
+          <h3>Capítulo 1. Cuando el bosque guardó silencio</h3>
+          <p>Al amanecer, Alma abrió la ventana y descubrió que el bosque estaba distinto. No se escuchaba el canto de los pájaros, ni el roce de las hojas, ni el agua pequeña que corría junto al camino.</p>
+          <p>Tomó su cuaderno y salió a caminar. Quería descubrir dónde se habían escondido todos aquellos sonidos. En el sendero encontró a Tomás, que escuchaba con los ojos cerrados y una mano apoyada sobre la tierra.</p>
+          <p>—El bosque no está vacío —dijo Tomás—. Tal vez está esperando que volvamos a escucharlo.</p>
+          <p class="media-status">Fragmento ficticio para demostración.</p>
+        </div>
+        <div class="reading-tools" aria-label="Herramientas de lectura">
+          <button type="button" id="readTextButton">Leer en voz alta</button>
+          <button type="button" id="stopTextButton">Detener lectura</button>
+          <button type="button" id="largerReading">Aumentar texto</button>
+          <button type="button" id="normalReading">Restablecer texto</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <p><strong>El bosque que recuerda</strong> · Prototipo editorial accesible.</p>
+      <p><a href="#inicio">Volver al inicio ↑</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+      const body = document.body;
+      const accessToggle = document.getElementById('accessToggle');
+      const accessPanel = document.getElementById('accessPanel');
+      let fontScale = 1;
+      let audioUrl = null;
+      let lscUrl = null;
+      let lscCaptionUrl = null;
+      const objectUrls = [];
+      const captionUrls = [];
+
+      const setFontScale = (value) => {
+        fontScale = Math.max(0.9, Math.min(1.6, value));
+        document.documentElement.style.setProperty('--font-scale', fontScale.toFixed(2));
+      };
+      const syncPressed = () => {
+        document.querySelectorAll('[data-action][aria-pressed]').forEach((button) => {
+          const action = button.dataset.action;
+          const classes = {
+            grayscale: 'grayscale', negative: 'negative', 'high-contrast': 'high-contrast',
+            light: 'light-background', underline: 'underline-links', font: 'readable-font', motion: 'reduce-motion'
+          };
+          button.setAttribute('aria-pressed', String(Boolean(classes[action] && body.classList.contains(classes[action]))));
+        });
+      };
+      const closeAccessPanel = () => {
+        accessPanel.hidden = true;
+        accessToggle.setAttribute('aria-expanded', 'false');
+      };
+      accessToggle.addEventListener('click', () => {
+        const opening = accessPanel.hidden;
+        accessPanel.hidden = !opening;
+        accessToggle.setAttribute('aria-expanded', String(opening));
+        if (opening) accessPanel.querySelector('button').focus();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !accessPanel.hidden) {
+          closeAccessPanel();
+          accessToggle.focus();
+        }
+      });
+
+      document.querySelectorAll('[data-action]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const action = button.dataset.action;
+          if (action === 'font-up') setFontScale(fontScale + 0.1);
+          if (action === 'font-down') setFontScale(fontScale - 0.1);
+          if (action === 'grayscale') body.classList.toggle('grayscale');
+          if (action === 'negative' || action === 'high-contrast' || action === 'light') {
+            const target = action === 'negative' ? 'negative' : action === 'high-contrast' ? 'high-contrast' : 'light-background';
+            const wasActive = body.classList.contains(target);
+            body.classList.remove('negative', 'high-contrast', 'light-background');
+            if (!wasActive) body.classList.add(target);
+          }
+          if (action === 'underline') body.classList.toggle('underline-links');
+          if (action === 'font') body.classList.toggle('readable-font');
+          if (action === 'motion') body.classList.toggle('reduce-motion');
+          if (action === 'reset') {
+            body.classList.remove('grayscale', 'negative', 'high-contrast', 'light-background', 'underline-links', 'readable-font', 'reduce-motion');
+            setFontScale(1);
+          }
+          syncPressed();
+        });
+      });
+
+      const audioFile = document.getElementById('audioFile');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioStatus = document.getElementById('audioStatus');
+      audioFile.addEventListener('change', () => {
+        const file = audioFile.files && audioFile.files[0];
+        if (!file) return;
+        if (audioUrl) URL.revokeObjectURL(audioUrl);
+        audioUrl = URL.createObjectURL(file);
+        audioPlayer.src = audioUrl;
+        audioStatus.textContent = 'Audio cargado: ' + file.name;
+      });
+
+      const samples = {
+        opening: 'Al amanecer, Alma abrió la ventana y descubrió que el bosque estaba distinto. No se escuchaba el canto de los pájaros, ni el roce de las hojas, ni el agua pequeña que corría junto al camino.',
+        middle: 'Tomó su cuaderno y salió a caminar. Quería descubrir dónde se habían escondido todos aquellos sonidos. En el sendero encontró a Tomás, que escuchaba con los ojos cerrados y una mano apoyada sobre la tierra.',
+        ending: 'El bosque no estaba vacío. Estaba lleno de pequeñas señales. Alma comprendió que recordar también era escuchar, mirar, tocar y compartir lo que descubrimos.'
+      };
+      let currentSample = 'opening';
+      document.querySelectorAll('[data-sample]').forEach((button) => {
+        button.addEventListener('click', () => {
+          currentSample = button.dataset.sample;
+          document.querySelectorAll('[data-sample]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        });
+      });
+
+      const getSpeechRate = () => Number(document.getElementById('speechRate').value || 1);
+      document.getElementById('speechRate').addEventListener('change', () => { audioPlayer.playbackRate = getSpeechRate(); });
+      const speak = (text) => {
+        if (!('speechSynthesis' in window)) {
+          audioStatus.textContent = 'La lectura en voz alta no está disponible en este navegador.';
+          return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-CO';
+        utterance.rate = getSpeechRate();
+        window.speechSynthesis.speak(utterance);
+      };
+      document.getElementById('speakButton').addEventListener('click', () => speak(samples[currentSample]));
+      document.getElementById('stopSpeakButton').addEventListener('click', () => window.speechSynthesis && window.speechSynthesis.cancel());
+      document.getElementById('readTextButton').addEventListener('click', () => speak(document.getElementById('sampleText').innerText));
+      document.getElementById('stopTextButton').addEventListener('click', () => window.speechSynthesis && window.speechSynthesis.cancel());
+      document.getElementById('largerReading').addEventListener('click', () => { document.getElementById('sampleText').style.fontSize = '1.2em'; });
+      document.getElementById('normalReading').addEventListener('click', () => { document.getElementById('sampleText').style.fontSize = ''; });
+
+      document.querySelectorAll('[data-video]').forEach((input) => {
+        input.addEventListener('change', () => {
+          const file = input.files && input.files[0];
+          if (!file) return;
+          const card = input.closest('.video-card');
+          const video = card.querySelector('video');
+          const poster = card.querySelector('[data-poster]');
+          const url = URL.createObjectURL(file);
+          objectUrls.push(url);
+          video.src = url;
+          video.hidden = false;
+          poster.hidden = true;
+          card.querySelector('.media-status').textContent = 'Video cargado: ' + file.name;
+        });
+      });
+      document.querySelectorAll('[data-caption]').forEach((input) => {
+        input.addEventListener('change', () => {
+          const file = input.files && input.files[0];
+          if (!file) return;
+          const card = input.closest('.video-card');
+          const video = card.querySelector('video');
+          const url = URL.createObjectURL(file);
+          captionUrls.push(url);
+          video.querySelectorAll('track').forEach((track) => track.remove());
+          const track = document.createElement('track');
+          track.kind = 'captions'; track.label = 'Español'; track.srclang = 'es'; track.src = url; track.default = true;
+          video.appendChild(track);
+          card.querySelector('.media-status').textContent = 'Subtítulos cargados: ' + file.name;
+        });
+      });
+
+      const lscFile = document.getElementById('lscFile');
+      const lscPlayer = document.getElementById('lscPlayer');
+      const lscPlaceholder = document.getElementById('lscPlaceholder');
+      lscFile.addEventListener('change', () => {
+        const file = lscFile.files && lscFile.files[0];
+        if (!file) return;
+        if (lscUrl) URL.revokeObjectURL(lscUrl);
+        lscUrl = URL.createObjectURL(file);
+        lscPlayer.src = lscUrl;
+        lscPlayer.hidden = false;
+        lscPlaceholder.hidden = true;
+        document.getElementById('lscStatus').textContent = 'Video LSC cargado: ' + file.name;
+      });
+      document.getElementById('lscCaption').addEventListener('change', (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+        if (lscCaptionUrl) URL.revokeObjectURL(lscCaptionUrl);
+        lscCaptionUrl = URL.createObjectURL(file);
+        lscPlayer.querySelectorAll('track').forEach((track) => track.remove());
+        const track = document.createElement('track');
+        track.kind = 'captions'; track.label = 'Español'; track.srclang = 'es'; track.src = lscCaptionUrl; track.default = true;
+        lscPlayer.appendChild(track);
+        document.getElementById('lscStatus').textContent = 'Subtítulos cargados: ' + file.name;
+      });
+
+      window.addEventListener('beforeunload', () => {
+        if (audioUrl) URL.revokeObjectURL(audioUrl);
+        if (lscUrl) URL.revokeObjectURL(lscUrl);
+        if (lscCaptionUrl) URL.revokeObjectURL(lscCaptionUrl);
+        objectUrls.forEach((url) => URL.revokeObjectURL(url));
+        captionUrls.forEach((url) => URL.revokeObjectURL(url));
+      });
+    })();
+  </script>
+</body>
+</html>
